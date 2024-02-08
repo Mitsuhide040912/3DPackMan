@@ -105,6 +105,8 @@ void Player::Update()
 
 void Player::Draw()
 {
+	Model::SetTransform(hModel_, transform_);
+	Model::Draw(hModel_);
 }
 
 void Player::Release()
