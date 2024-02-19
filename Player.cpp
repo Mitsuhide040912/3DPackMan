@@ -82,6 +82,7 @@ void Player::Update()
 	Debug::Log(pStage_->IsWall(tx,ty), true);
 
 
+
 	if (!XMVector3Equal(move, XMVectorZero())) {
 		XMStoreFloat3(&(transform_.position_), pos);
 
