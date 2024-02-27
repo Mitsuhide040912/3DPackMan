@@ -6,7 +6,7 @@
 
 
 namespace {
-const float PLAYER_MOVE_SPEED{ 0.1f };
+const float PLAYER_MOVE_SPEED{ 0.3f };
 }
 
 
