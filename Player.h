@@ -3,6 +3,33 @@
 
 class Stage;
 
+
+class PRect
+{
+public:
+	PRect();
+	void SetRectCenter(float _cx, float _cy, float _width, float _height);
+	void SetRectYopBottom(float _left, float _top, float _width, float _height);
+	~PRect();
+	float GetLeft();
+	float GetRight();
+	float GetTop();
+	float GetBottom();
+	float GetCenterx();
+	float GetCentery();
+	float GetWidth();
+	float GetHeight();
+	float top;
+	float bottom;
+	float left;
+	float right;
+	float centerx;
+	float centery;
+	float width;
+	float height;
+};
+
+
 class Player :
     public GameObject
 {

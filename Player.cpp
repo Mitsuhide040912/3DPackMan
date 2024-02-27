@@ -6,7 +6,7 @@
 
 
 namespace {
-const float PLAYER_MOVE_SPEED{ 1.0f };
+const float PLAYER_MOVE_SPEED{ 0.1f };
 }
 
 
@@ -26,6 +26,14 @@ void Player::Initialize()
 
 void Player::Update()
 {
+
+	enum Dir
+	{
+		UP,LEFT,DOWN,RIGHT,NONE,
+	};
+
+	int moveDir = Dir::NONE;
+
 	XMVECTOR vFront = { 0, 0, 1, 0 };
 	XMVECTOR move{ 0, 0, 0, 0 };
 
@@ -56,6 +64,35 @@ void Player::Update()
 	posTmp = pos + speed_ * move;
 
 	int tx, ty;
+	PRect pr;
+	pr.SetRectCenter(XMVectorGetX(posTmp), XMVectorGetZ(posTmp), 1.0, 1.0);
+
+	switch (moveDir)
+	{
+	case UP:
+		tx = (int)(pr.centerx + 1);
+		ty = pStage_->GetStageHeight() - (int)(pr.top) - 1;
+		break;
+	case DOWN:
+		tx = (int)(pr.centerx + 1);
+		ty = pStage_->GetStageHeight() - (int)(pr.bottom) - 1;
+		break;
+	case LEFT:
+		tx = (int)(pr.left + 1);
+		ty = pStage_->GetStageHeight() - (int)(pr.centery) - 1;
+		break;
+	case RIGHT:
+		tx = (int)(pr.right + 1);
+		ty = pStage_->GetStageHeight() - (int)(pr.centery) - 1;
+		break;
+	case NONE:
+		tx = (int)(pr.centerx + 1);
+		ty = pStage_->GetStageHeight() - (int)(pr.centery) - 1;
+		break;
+	defaulet:
+		break;
+	}
+
 	tx = (int)(XMVectorGetX(posTmp) + 1.0f);
 	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(posTmp) + 1.0f);
 	if (!(pStage_->IsWall(tx, ty)))
@@ -112,4 +149,83 @@ void Player::Draw()
 
 void Player::Release()
 {
+}
+
+PRect::PRect()
+	:top(-1),bottom(-1),
+	left(-1),
+	right(-1),
+	centerx(-1),
+	centery(-1),
+	width(-1),
+	height(-1)
+{
+}
+
+void PRect::SetRectCenter(float _cx, float _cy, float _width, float _height)
+{
+	centerx = _cx;
+	centery = _cy;
+	width = _width;
+	height = _height;
+	top = centery + height / 2.0;
+	bottom = centery - height / 2.0;
+	left = centerx - width / 2.0;
+	right = centerx + width / 2.0;
+}
+
+void PRect::SetRectYopBottom(float _left, float _top, float _width, float _height)
+{
+	left = _left;
+	top = _top;
+	width = _width;
+	height = _height;
+	centery = top - height / 2.0;
+	bottom = top - height;
+	centerx = left + width / 2.0;
+	right = left + width;
+}
+
+PRect::~PRect()
+{
+}
+
+float PRect::GetLeft()
+{
+	return left;
+}
+
+float PRect::GetRight()
+{
+	return right;
+}
+
+float PRect::GetTop()
+{
+	return top;
+}
+
+float PRect::GetBottom()
+{
+	return bottom;
+}
+
+float PRect::GetCenterx()
+{
+	return centerx;
+}
+
+float PRect::GetCentery()
+{
+	return centery;
+}
+
+float PRect::GetWidth()
+{
+	return width;
+}
+
+float PRect::GetHeight()
+{
+	return height;
 }

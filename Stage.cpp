@@ -28,6 +28,12 @@ namespace
 
 bool Stage::IsWall(int _x, int _y)
 {
+
+	assert(_x < stageWidth_);
+	assert(_y < stageHeight_);
+	assert(_y >= 0);
+	assert(_x >= 0);
+
 	if (stageData_[_y][_x] == STAGE_OBJ::WALL)
 		return true;
 	else
