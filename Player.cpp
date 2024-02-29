@@ -4,6 +4,7 @@
 #include "Engine/Debug.h"
 #include "Stage.h"
 #include "Gauge.h"
+#include "Engine/SceneManager.h"
 
 namespace {
 const float PLAYER_MOVE_SPEED{ 0.1f };
@@ -104,6 +105,12 @@ void Player::Update()
 	else
 	{
 		hp_Crr_ = hp_Crr_ - 2;
+		/*if (hp_Crr_ <= 0) {
+			hp_Crr_ = 0;
+			KillMe();
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+		}*/
 	}
 
 	//posTmp.x, posTmp.z => int tx,ty :配列のインデックス

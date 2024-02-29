@@ -1,5 +1,5 @@
 #include "sceneManager.h"
-
+#include "../CLEAR.h"
 #include "../TestScene.h"
 #include "../PlayScene.h"
 #include "Model.h"
