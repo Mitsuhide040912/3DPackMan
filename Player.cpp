@@ -6,7 +6,7 @@
 
 
 namespace {
-const float PLAYER_MOVE_SPEED{ 0.3f };
+const float PLAYER_MOVE_SPEED{ 0.1f };
 }
 
 
@@ -22,6 +22,7 @@ void Player::Initialize()
 	transform_.position_.x = 0.5;
 	transform_.position_.z = 1.5;
 	pStage_ = (Stage*)FindObject("Stage");
+	pr.SetRectCenter(transform_.position_.x, transform_.position_.z, 1.0, 1.0);
 }
 
 void Player::Update()
@@ -93,8 +94,8 @@ void Player::Update()
 		break;
 	}
 
-	tx = (int)(XMVectorGetX(posTmp) + 1.0f);
-	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(posTmp) + 1.0f);
+	tx = (int)(XMVectorGetX((posTmp + (move * 0.5))) + 1.0f);
+	ty = pStage_->GetStageWidth() - (int)(XMVectorGetZ(posTmp+(move*0.5))+1.0f);
 	if (!(pStage_->IsWall(tx, ty)))
 	{
 		pos = posTmp;
@@ -106,7 +107,7 @@ void Player::Update()
 	/*if (map[ty][tx] == STAGE_OBJ::FLOOR) {
 		pos = posTemp;
 	}*/
-	Debug::Log("(X,Z)=");
+	/*Debug::Log("(X,Z)=");
 	Debug::Log(XMVectorGetX(pos));
 	Debug::Log(",");
 	Debug::Log(XMVectorGetZ(pos),true);
@@ -116,9 +117,14 @@ void Player::Update()
 	Debug::Log(",");
 	Debug::Log(ty);
 	Debug::Log(" : ");
-	Debug::Log(pStage_->IsWall(tx,ty), true);
+	Debug::Log(pStage_->IsWall(tx,ty), true);*/
 
-
+	/*if (!XMVector3Equal(move, XMVectorZero())) {
+		XMStoreFloat3(&(transform_.position_), pos);
+		float retAngle = 0.0;
+		retAngle = atan2(XMVectorGetX(move), XMVectorGetZ(move));
+		transform_.position_.y = XMConvertToDegrees(retAngle);
+	}*/
 
 	if (!XMVector3Equal(move, XMVectorZero())) {
 		XMStoreFloat3(&(transform_.position_), pos);
@@ -152,13 +158,14 @@ void Player::Release()
 }
 
 PRect::PRect()
-	:top(-1),bottom(-1),
-	left(-1),
-	right(-1),
-	centerx(-1),
-	centery(-1),
-	width(-1),
-	height(-1)
+	:top(-1),
+	 bottom(-1),
+	 left(-1),
+	 right(-1),
+	 centerx(-1),
+	 centery(-1),
+	 width(-1),
+	 height(-1)
 {
 }
 
@@ -174,17 +181,29 @@ void PRect::SetRectCenter(float _cx, float _cy, float _width, float _height)
 	right = centerx + width / 2.0;
 }
 
-void PRect::SetRectYopBottom(float _left, float _top, float _width, float _height)
+void PRect::SetRectTopBottom(float _left, float _top, float _width, float _height)
 {
-	left = _left;
-	top = _top;
-	width = _width;
-	height = _height;
-	centery = top - height / 2.0;
-	bottom = top - height;
-	centerx = left + width / 2.0;
-	right = left + width;
+	    left = _left;
+		top = _top;
+		width = _width;
+		height = _height;
+		centery = top - height / 2.0;
+		bottom = top - height;
+		centerx = left + width / 2.0;
+		right = left + width;
 }
+
+//void PRect::SetRectYopBottom(float _left, float _top, float _width, float _height)
+//{
+//	left = _left;
+//	top = _top;
+//	width = _width;
+//	height = _height;
+//	centery = top - height / 2.0;
+//	bottom = top - height;
+//	centerx = left + width / 2.0;
+//	right = left + width;
+//}
 
 PRect::~PRect()
 {

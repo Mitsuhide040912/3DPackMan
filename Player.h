@@ -9,7 +9,7 @@ class PRect
 public:
 	PRect();
 	void SetRectCenter(float _cx, float _cy, float _width, float _height);
-	void SetRectYopBottom(float _left, float _top, float _width, float _height);
+	void SetRectTopBottom(float _left, float _top, float _width, float _height);
 	~PRect();
 	float GetLeft();
 	float GetRight();
@@ -36,6 +36,7 @@ class Player :
 	int hModel_;
 	float speed_;
 	Stage* pStage_;
+	PRect pr;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
