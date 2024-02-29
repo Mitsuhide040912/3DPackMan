@@ -9,9 +9,10 @@ PlayScene::PlayScene(GameObject* parent)
 
 void PlayScene::Initialize()
 {
-	Instantiate<Gauge>(this);
+	
 	Instantiate<Stage>(this);
 	Instantiate<Player>(this);
+	Instantiate<Gauge>(this);
 }
 
 void PlayScene::Update()

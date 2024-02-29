@@ -39,7 +39,7 @@ void SceneManager::Update()
 		//Ÿ‚ÌƒV[ƒ“‚ğì¬
 		switch (nextSceneID_)
 		{
-		case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
+		//case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
 		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
 
 		}

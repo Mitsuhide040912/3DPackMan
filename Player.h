@@ -3,7 +3,6 @@
 
 class Stage;
 
-
 class PRect
 {
 public:
@@ -29,10 +28,11 @@ public:
 	float height;
 };
 
-
 class Player :
     public GameObject
 {
+	int hpMax_;
+	int hp_Crr_;
 	int hModel_;
 	float speed_;
 	Stage* pStage_;
