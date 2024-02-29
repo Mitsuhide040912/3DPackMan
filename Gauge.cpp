@@ -3,8 +3,8 @@
 #include "Engine/Model.h"
 Gauge::Gauge(GameObject* parent)
 	:GameObject(parent,"Gauge"),hGaugeBar_(-1),hGaugeFrame_(-1),
-	gaugeCrrVal_(200),
-	gaugeMaxVal_(100)
+	gaugeCrrVal_(100),
+	gaugeMaxVal_(200)
 {
 }
 
@@ -39,4 +39,10 @@ void Gauge::Draw()
 
 void Gauge::Release()
 {
+}
+
+void Gauge::SetGaugeVal(int _cnt, int _max)
+{
+	gaugeMaxVal_ = _max;
+	gaugeCrrVal_ = _cnt;
 }

@@ -3,7 +3,7 @@
 #include "Engine/Input.h"
 #include "Engine/Debug.h"
 #include "Stage.h"
-
+#include "Gauge.h"
 
 namespace {
 const float PLAYER_MOVE_SPEED{ 0.1f };
@@ -11,7 +11,7 @@ const float PLAYER_MOVE_SPEED{ 0.1f };
 
 
 Player::Player(GameObject* parent)
-	:GameObject(parent,"Player"),hModel_(-1),speed_(PLAYER_MOVE_SPEED),pStage_(nullptr)
+	:GameObject(parent,"Player"),hModel_(-1),speed_(PLAYER_MOVE_SPEED),pStage_(nullptr),hpMax_(100),hp_Crr_(100)
 {
 }
 
@@ -101,6 +101,11 @@ void Player::Update()
 		pos = posTmp;
 	}
 
+	else
+	{
+		hp_Crr_ = hp_Crr_ - 2;
+	}
+
 	//posTmp.x, posTmp.z => int tx,ty :配列のインデックス
 	//仮にmapの配列をmap[][]とする
 	//移動先がフロア(STAGE_OBJ::FLOOR => 0)だったら動く
@@ -145,6 +150,9 @@ void Player::Update()
 	//float rotAngle[5]{ 0, -90, 180, 90, 180 };
 	//transform_.rotate_.y = rotAngle[moveDir];
 
+
+	Gauge* pGauge = (Gauge*)FindObject("Gauge");
+	pGauge->SetGaugeVal(hp_Crr_, hpMax_);
 }
 
 void Player::Draw()
