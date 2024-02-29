@@ -74,7 +74,7 @@ void Stage::Initialize()
 	assert(hFloor_ >= 0);
 	hBlock_ = Model::Load("Model\\Wall.fbx");
 	assert(hBlock_ >= 0);
-	Camera::SetPosition({ 6,15,-5 });
+	Camera::SetPosition({ 6,10,-5 });
 	Camera::SetTarget({ 6,0,7 });
 }
 
