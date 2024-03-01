@@ -3,6 +3,8 @@
 class CLEAR :
     public GameObject
 {
+	int hGameOver;
+public:
 	CLEAR(GameObject* parent);
 
 	//‰Šú‰»
